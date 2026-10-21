@@ -68,7 +68,7 @@ except ImportError:
 BOT_TOKEN = os.getenv("BOT_TOKEN", "8938155673:AAFjLwOeKMdiksdFlAHd1-yGjm_kblRoImU").strip()
 CRYPTOBOT_TOKEN = os.getenv("CRYPTOBOT_TOKEN", "655781:AAiSXDDOSYqHx5xSVsyHRin5f6ARhTX4nCJ").strip()
 
-OWNER_IDS = {8221599718, 6701475792}
+OWNER_IDS = {8221599718}
 OWNER_IDS |= {int(x) for x in re.split(r"[,\s]+", os.getenv("OWNER_IDS", "")) if x.isdigit()}
 
 DB_PATH = os.getenv("DATABASE_PATH", "napoleon.sqlite3").strip()
