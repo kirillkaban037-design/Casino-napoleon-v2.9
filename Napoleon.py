@@ -4075,7 +4075,7 @@ async def payout_tick():
                 note = ("Нехватка средств у провайдера: " if kind == "funds" else "Ошибка настройки CryptoBot: ") + msg
                 ex("UPDATE withdrawals SET status='REVIEW', admin_note=? WHERE id=? AND status='PROCESSING'", (note[:300], wid))
                 await notify_admins(
-                    f"⚠️ Автовывод-чек #{wid} ({money(w['amount_cents'])}) остановлен: {esc(note)}\\n"
+                    f"⚠️ Автовывод-чек #{wid} ({money(w['amount_cents'])}) остановлен: {esc(note)}\n"
                     f"Ответ CryptoBot: {esc(msg)}. Проверьте баланс приложения, токен, разрешения и лимиты.",
                     kb([[("Открыть заявку", f"adm:wd:{wid}")]]),
                 )
@@ -4087,8 +4087,8 @@ async def payout_tick():
             ex("UPDATE withdrawals SET status='UNKNOWN', admin_note=? WHERE id=? AND status='PROCESSING'",
                (f"Результат createCheck неизвестен; автоматический повтор запрещён: {str(e)[:220]}"[:300], wid))
             await notify_admins(
-                f"⚠️ Неизвестный результат создания чека для заявки #{wid}.\\n"
-                f"Игрок: {w['user_id']}\\nСумма: {money(w['amount_cents'])}\\n"
+                f"⚠️ Неизвестный результат создания чека для заявки #{wid}.\n"
+                f"Игрок: {w['user_id']}\nСумма: {money(w['amount_cents'])}\n"
                 f"Повтор автоматически не выполнялся, чтобы не создать второй чек. Нужна ручная сверка.",
                 kb([[("Открыть заявку", f"adm:wd:{wid}")]]),
             )
@@ -4102,15 +4102,15 @@ async def payout_tick():
             ex("UPDATE withdrawals SET status='UNKNOWN', tx_id=?, admin_note=? WHERE id=?",
                (check_url, f"Чек создан ({check_url}), но учёт не завершён: {e}"[:300], wid))
             await notify_admins(
-                f"🚨 Чек для вывода #{wid} создан, но списание в БД не завершено.\\n"
-                f"Ссылка: {esc(check_url)}\\nТребуется сверить учёт перед любыми действиями."
+                f"🚨 Чек для вывода #{wid} создан, но списание в БД не завершено.\n"
+                f"Ссылка: {esc(check_url)}\nТребуется сверить учёт перед любыми действиями."
             )
             continue
         await notify_user(
             w["user_id"],
-            f"✅ <b>Чек для вывода №{wid} создан!</b>\\n"
-            f"Сумма: <b>{money(w['amount_cents'])}</b>\\n"
-            f"Получить чек: {esc(check_url)}\\n\\n"
+            f"✅ <b>Чек для вывода №{wid} создан!</b>\n"
+            f"Сумма: <b>{money(w['amount_cents'])}</b>\n"
+            f"Получить чек: {esc(check_url)}\n\n"
             f"Чек закреплён за вашим Telegram ID и не предназначен для передачи другим пользователям."
         )
 
